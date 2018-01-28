@@ -1,0 +1,24 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "A minesweeper game in react js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "Brian Morton",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.20.1",
+    "moment-duration-format": "^2.2.1",
+    "next": "^4.2.3",
+    "next-redux-wrapper": "^1.3.5",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  }
+}

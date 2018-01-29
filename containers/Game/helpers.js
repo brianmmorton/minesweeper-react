@@ -29,6 +29,10 @@ export function generateRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/*
+  A given cell has 8 adjacent cells (4 corners and 4 sides)
+  This function returns those 8 adjacent cells
+*/
 export function getAdjacentCells (rows, ri, ci) {
   const currentRow = rows[ri];
   const lastRow = rows[ri - 1] || [];
@@ -48,9 +52,14 @@ export function getAdjacentCells (rows, ri, ci) {
 
 export const getKey = (ri, ci) => `row:${ri}-cell:${ci}`;
 
+/*
+  Gets the adjacent cells to open when the player clicks a cell.
+*/
 export function getCellsToOpen (_data, _ri, _ci) {
   let cellsToOpen = [[_ri, _ci]];
 
+  // if its not 0, then there is no need to continue
+  // ie, player clicks a 1, dont open an adjacent cells.
   if (_data[_ri][_ci].mineCount !== 0) {
     return cellsToOpen;
   }
@@ -64,6 +73,8 @@ export function getCellsToOpen (_data, _ri, _ci) {
         continue;
       }
 
+      // make sure to set value so that it is not continually checked,
+      // creating an infinte loop
       data[adjacentCell.ri][adjacentCell.ci].hasBeenChecked = true;
 
       if (adjacentCell.mineCount === 0) {
@@ -78,6 +89,9 @@ export function getCellsToOpen (_data, _ri, _ci) {
   return cellsToOpen;
 }
 
+/*
+  Gets the number of mines adjacent to a location
+*/
 export function getMineCount (rows, ri, ci) {
   let mineCount = 0;
 
@@ -90,6 +104,11 @@ export function getMineCount (rows, ri, ci) {
   return mineCount;
 }
 
+/*
+  Generates and fills in data for game.
+  Returns array of rows, num rows is the height.
+  Each row is an array of columns, each one having a cell.
+*/
 export function generateData ({ width, height, mines }) {
   const data = Array.apply(null, { length: height })
     .map((d, i) =>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import shallowCompare from 'react-addons-shallow-compare';
 import {
   CELL_WIDTH,
   CELL_HEIGHT,
@@ -7,6 +8,14 @@ import {
   MINE,
   CELL,
 } from './constants';
+
+const colorMap = {
+  1: 'blue',
+  2: 'green',
+  3: 'red',
+  4: '#660000',
+  5: '#006600',
+}
 
 export default class Cell extends Component {
 
@@ -20,6 +29,10 @@ export default class Cell extends Component {
     }),
     onLeftClick: PropTypes.func.isRequired,
     onRightClick: PropTypes.func.isRequired,
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   }
 
   _handleClick = (e) => {
@@ -79,20 +92,8 @@ export default class Cell extends Component {
           if (mineCount === 0) {
             return null;
           }
-          if (mineCount === 1) {
-            return <span style={{ color: 'blue' }}>{mineCount}</span>
-          }
-          else if (mineCount === 2) {
-            return <span style={{ color: 'green' }}>{mineCount}</span>
-          }
-          else if (mineCount === 3) {
-            return <span style={{ color: 'red' }}>{mineCount}</span>
-          }
-          else if (mineCount === 4) {
-            return <span style={{ color: 'burghandy' }}>{mineCount}</span>
-          }
 
-          return <span style={{ color: 'black' }}>{mineCount}</span>
+          return <span style={{ color: colorMap[mineCount] || 'black' }}>{mineCount}</span>
         })()}
       </div>
     )

@@ -191,7 +191,7 @@ export default class Game extends Component {
           store time in separate component, linked by a listener for updates from the Timer class
         */}
         <Time timer={this.timer} />
-        {difficulty.mines - this._getColumns().filter(d => d.isFlagged).length} mines
+      {difficulty.mines - this._getColumns().filter(d => d.isFlagged).length} mines remaining
 
         {this.state.gameOver && <h1>Game Over!</h1>}
       </div>
